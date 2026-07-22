@@ -13,10 +13,7 @@ api_client = importlib.reload(api_client)
 
 
 def _latest() -> dict | None:
-    if "repository_analysis" in st.session_state:
-        return st.session_state.repository_analysis
-    analysis, _ = api_client.latest_analysis()
-    return analysis
+    return st.session_state.get("repository_analysis")
 
 
 def _review_section(title: str, review: dict) -> None:
@@ -35,14 +32,30 @@ def render() -> None:
     st.title("AI Repository Review")
     st.caption("AutoGen reasoning over compact scanner facts. Agents do not scan or read repository files.")
     analysis = _latest()
-    default_path = analysis["path"] if analysis else st.session_state.get("repository_path", "")
+    
+    review = st.session_state.get("ai_repository_review")
+    
+    # Use analysis from session state, or fallback to the one in the review context
+    display_analysis = analysis
+    if not display_analysis and review and "context" in review and "structure" in review["context"]:
+        ctx = review["context"]
+        display_analysis = {
+            "repository_name": ctx["repository"]["name"],
+            "files": ctx["structure"]["total_files"],
+            "health_score": ctx["repository"]["health_score"],
+            "tests": ctx["quality"]["test_files"],
+            "path": ctx["repository"]["path"]
+        }
+        
+    default_path = display_analysis["path"] if display_analysis else st.session_state.get("repository_path", "")
     path = st.text_input("Repository path", value=default_path, key="ai_review_path")
-    if analysis:
+    
+    if display_analysis:
         metrics = st.columns(4)
-        metrics[0].metric("Repository", analysis["repository_name"])
-        metrics[1].metric("Files", f"{analysis['files']:,}")
-        metrics[2].metric("Health", f"{analysis['health_score']}/100")
-        metrics[3].metric("Test files", analysis["tests"])
+        metrics[0].metric("Repository", display_analysis["repository_name"])
+        metrics[1].metric("Files", f"{display_analysis['files']:,}")
+        metrics[2].metric("Health", f"{display_analysis['health_score']}/100")
+        metrics[3].metric("Test files", display_analysis["tests"])
     if st.button("Run AI Review", type="primary", disabled=not path.strip()):
         with st.spinner("Building bounded repository context and running the three-pass review team..."):
             review, error = api_client.review_repository(path.strip())
