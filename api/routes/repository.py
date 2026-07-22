@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
 from services.repository_scanner import repository_scanner
+from services.ai_review_service import ai_review_service
 
 
 router = APIRouter(prefix="/api/repository", tags=["repository"])
@@ -16,6 +17,10 @@ router = APIRouter(prefix="/api/repository", tags=["repository"])
 class RepositoryAnalysisRequest(BaseModel):
     path: str = Field(min_length=1, description="Absolute or user-relative local repository path")
     force: bool = Field(default=False, description="Bypass the in-memory cached analysis")
+
+
+class RepositoryReviewRequest(BaseModel):
+    path: str = Field(min_length=1, description="Absolute or user-relative local repository path")
 
 
 @router.post("/analyze")
@@ -30,6 +35,15 @@ async def analyze_repository(payload: RepositoryAnalysisRequest, request: Reques
     recent.insert(0, {key: result[key] for key in ("repository_name", "path", "scanned_at", "scan_duration_ms")})
     request.app.state.recent_repository_analyses = recent[:5]
     return result
+
+
+@router.post("/review")
+async def review_repository(payload: RepositoryReviewRequest) -> dict[str, Any]:
+    """Return a cached, bounded AutoGen review derived solely from scanner output."""
+    try:
+        return await ai_review_service.review_repository(payload.path)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @router.get("/latest")

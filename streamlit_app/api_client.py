@@ -41,3 +41,7 @@ def recent_analyses() -> tuple[list[dict[str, Any]] | None, str | None]:
 
 def browse_folders(path: str) -> tuple[dict[str, Any] | None, str | None]:
     return _request("GET", "/api/repository/browse", params={"path": path})
+
+
+def review_repository(path: str) -> tuple[dict[str, Any] | None, str | None]:
+    return _request("POST", "/api/repository/review", json={"path": path})

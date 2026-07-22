@@ -23,6 +23,7 @@ st.sidebar.divider()
 pages = [
     st.Page("pages/dashboard.py", title="Dashboard", icon=":material/dashboard:"),
     st.Page("pages/repository_intelligence.py", title="Repository Intelligence", icon=":material/account_tree:"),
+    st.Page("pages/ai_review.py", title="AI Repository Review", icon=":material/auto_awesome:"),
 ]
 st.sidebar.divider()
 st.sidebar.caption("Repository analysis workspace")
