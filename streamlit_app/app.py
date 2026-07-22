@@ -30,9 +30,6 @@ st.sidebar.divider()
 pages = [
     st.Page("pages/dashboard.py", title="Dashboard", icon=":material/dashboard:"),
     st.Page("pages/repository_intelligence.py", title="Repository Intelligence", icon=":material/account_tree:"),
-    st.Page("pages/observability.py", title="Observability", icon=":material/monitoring:"),
-    st.Page("pages/organization.py", title="Organization", icon=":material/groups:"),
-    st.Page("pages/laboratory.py", title="Laboratory", icon=":material/science:"),
 ]
 
 st.sidebar.divider()

@@ -5,7 +5,7 @@ from time import time
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import runs, benchmarks, artifacts, repairs, approvals, knowledge, health
+from api.routes import runs, benchmarks, artifacts, repairs, approvals, health
 from api.services.websocket_service import WebsocketService
 from api.middleware.exception_handler import global_exception_handler
 from api.middleware.logging import log_request_middleware
@@ -54,26 +54,13 @@ def create_app() -> FastAPI:
     app.include_router(artifacts.router)
     app.include_router(benchmarks.router)
     app.include_router(repairs.router)
-    app.include_router(knowledge.router)
     app.include_router(health.router)
 
-    from core_platform.organizations.router import router as org_router
-    from core_platform.projects.router import router as proj_router
-    from api.routes.evolution import router as evo_router
     from api.routes.product import router as prod_router
     from api.routes.quality import router as qual_router
-    from api.routes.observability import router as obs_router
-    from api.routes.simulation import router as sim_router
-    from api.routes.laboratory import router as lab_router
 
-    app.include_router(org_router)
-    app.include_router(proj_router)
-    app.include_router(evo_router)
     app.include_router(prod_router)
     app.include_router(qual_router)
-    app.include_router(obs_router)
-    app.include_router(sim_router)
-    app.include_router(lab_router)
 
     websocket_service = WebsocketService()
 
