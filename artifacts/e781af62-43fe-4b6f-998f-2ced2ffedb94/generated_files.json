@@ -1,0 +1,12 @@
+[
+  {
+    "path": "app/models/mock_model.py",
+    "content": "class Mock:\n    pass\n",
+    "file_type": "python"
+  },
+  {
+    "path": "app/api/mock_api.py",
+    "content": "def mock_router() -> int:\n    return 1\n",
+    "file_type": "python"
+  }
+]

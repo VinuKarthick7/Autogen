@@ -1,0 +1,16 @@
+{
+  "benchmark_id": "pms-hard-2",
+  "run_id": "bench_pms_20260721_094917_pms-hard-2_292e4a",
+  "passed": false,
+  "planner_accuracy": 0.0,
+  "dependency_accuracy": 1.0,
+  "repair_success_rate": 0.0,
+  "verification_success": false,
+  "repair_attempts": 0,
+  "human_intervention": false,
+  "generated_files": 0,
+  "modified_files": 0,
+  "duration_seconds": 0.7660086154937744,
+  "tokens_used": 5000,
+  "estimated_cost_usd": 0.0025
+}

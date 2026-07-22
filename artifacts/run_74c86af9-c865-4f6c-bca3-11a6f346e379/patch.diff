@@ -1,0 +1,16 @@
+diff --git a/app/api/mock.py b/app/api/mock.py
+new file mode 100644
+index 0000000..020e40c
+--- /dev/null
++++ b/app/api/mock.py
+@@ -0,0 +1,2 @@
++def mock_router() -> int:
++    return 1
+diff --git a/app/models/mock.py b/app/models/mock.py
+new file mode 100644
+index 0000000..e181401
+--- /dev/null
++++ b/app/models/mock.py
+@@ -0,0 +1,2 @@
++class Mock:
++    pass

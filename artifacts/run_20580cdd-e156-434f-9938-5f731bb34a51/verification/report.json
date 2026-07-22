@@ -1,0 +1,74 @@
+{
+  "passed": false,
+  "total_steps": 1,
+  "passed_steps": 0,
+  "failed_steps": 1,
+  "steps": [
+    {
+      "name": "Lint",
+      "command": "auto-detected",
+      "success": false,
+      "duration_ms": 1323,
+      "stdout": "--- python ---\nF821 Undefined name `password`\n --> app\\models\\BookingEntity.py:8:12\n  |\n6 |         print('RESERVED to CLEANING')\n7 |     def login(self):\n8 |         if password == '1234': pass\n  |            ^^^^^^^^\n  |\n\nE701 Multiple statements on one line (colon)\n --> app\\models\\BookingEntity.py:8:30\n  |\n6 |         print('RESERVED to CLEANING')\n7 |     def login(self):\n8 |         if password == '1234': pass\n  |                              ^\n  |\n\nFound 2 errors.\n\n--- python ---\nSuccess: no issues found in 3 source files\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "Rules Engine",
+      "command": "repository_rules.py",
+      "success": false,
+      "duration_ms": 0,
+      "stdout": "Matched forbidden pattern: password\\s*==\\s*['\"]1234['\"]\nMatched forbidden pattern: mock\nBookingEntity is missing required field: roomId\nDomain invariant violation: Impossible status transition.\nDomain invariant violation: Impossible status transition.\nRegression detected: PMS-001 Authentication bypass using 1234",
+      "stderr": ""
+    }
+  ],
+  "rule_violations": [
+    {
+      "severity": "CRITICAL",
+      "category": "ForbiddenPattern",
+      "file": "app/models/BookingEntity.py",
+      "line": 8,
+      "message": "Matched forbidden pattern: password\\s*==\\s*['\"]1234['\"]",
+      "suggestion": "Hardcoded default authentication token"
+    },
+    {
+      "severity": "HIGH",
+      "category": "ForbiddenPattern",
+      "file": "app/api/mock_api.py",
+      "line": 1,
+      "message": "Matched forbidden pattern: mock",
+      "suggestion": "Potential fake logic"
+    },
+    {
+      "severity": "HIGH",
+      "category": "EntityContract",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "BookingEntity is missing required field: roomId",
+      "suggestion": "Add roomId to BookingEntity to comply with entity contract."
+    },
+    {
+      "severity": "HIGH",
+      "category": "DomainLogic",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "Domain invariant violation: Impossible status transition.",
+      "suggestion": "Fix domain logic transitions."
+    },
+    {
+      "severity": "HIGH",
+      "category": "DomainLogic",
+      "file": "app/api/mock_api.py",
+      "line": 1,
+      "message": "Domain invariant violation: Impossible status transition.",
+      "suggestion": "Fix domain logic transitions."
+    },
+    {
+      "severity": "CRITICAL",
+      "category": "Regression",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "Regression detected: PMS-001 Authentication bypass using 1234",
+      "suggestion": "Review knowledge base to understand past decisions."
+    }
+  ]
+}

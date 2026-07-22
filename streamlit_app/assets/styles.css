@@ -1,0 +1,88 @@
+/* Shared visual language for the Autonomous Engineering Cockpit. */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+}
+
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
+
+[data-testid="stAppViewContainer"] {
+    background: radial-gradient(circle at 85% -10%, rgba(124, 58, 237, 0.13), transparent 32%), #0d1020;
+}
+
+[data-testid="stSidebar"] { background: #101426; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { color: #b9c1d9; }
+
+[data-testid="stMetric"] {
+    background: linear-gradient(135deg, rgba(31, 41, 68, .94), rgba(21, 27, 49, .94));
+    border: 1px solid rgba(157, 176, 226, .14);
+    border-radius: 14px;
+    padding: 16px;
+    min-height: 118px;
+}
+[data-testid="stMetricLabel"] { color: #aeb8d8; }
+[data-testid="stMetricValue"] { color: #f4f5ff; font-family: 'Space Grotesk', sans-serif; }
+
+.recommendation {
+    background: linear-gradient(90deg, rgba(124, 58, 237, .16), rgba(20, 184, 166, .08));
+    border-left: 3px solid #8b5cf6;
+    border-radius: 8px;
+    margin: 8px 0;
+    padding: 13px 16px;
+}
+.recommendation span { color: #c8cde0; }
+
+/* Status Cards */
+.status-card {
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #4CAF50;
+}
+
+.status-card-failed {
+    border-left: 4px solid #F44336;
+}
+
+.status-card-title {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.status-card-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFF;
+}
+
+/* Timeline */
+.timeline-item {
+    padding: 10px;
+    border-left: 2px solid #333;
+    margin-left: 20px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333;
+}
+
+.timeline-planner::before { background: #2196F3; }
+.timeline-database::before { background: #9C27B0; }
+.timeline-backend::before { background: #4CAF50; }
+.timeline-frontend::before { background: #FF9800; }
+.timeline-reviewer::before { background: #F44336; }
+.timeline-repair::before { background: #FFEB3B; }
+.timeline-verification::before { background: #00BCD4; }

@@ -1,0 +1,13 @@
+BookingEntity:
+  required_fields:
+    - uuid
+    - propertyId
+    - guestId
+    - roomId
+  sync_required: true
+
+RoomEntity:
+  required_fields:
+    - uuid
+    - propertyId
+  sync_required: true

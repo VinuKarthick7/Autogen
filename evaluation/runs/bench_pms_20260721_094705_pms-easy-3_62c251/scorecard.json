@@ -1,0 +1,9 @@
+{
+  "planner_score": 0.0,
+  "repair_score": 100.0,
+  "verification_score": 100.0,
+  "dependency_score": 100.0,
+  "safety_score": 100.0,
+  "total_score": 75.0,
+  "grade": "B"
+}

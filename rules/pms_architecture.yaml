@@ -1,0 +1,9 @@
+rules:
+  - name: service_must_use_dao
+  - name: ui_cannot_access_database
+  - name: sync_writes_require_transaction
+  - name: entity_must_have_uuid
+  - name: booking_must_have_property_id
+  - name: no_hardcoded_ids
+  - name: no_fake_authentication
+  - name: no_local_auth_bypass

@@ -1,0 +1,15 @@
+--- STDOUT ---
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\projects\Autogen\workspaces\run_9ed5f829-1af4-41ee-8351-c2683216a3ab\repo
+configfile: pytest.ini
+plugins: anyio-4.14.1
+collected 1 item
+
+test_dummy.py .                                                          [100%]
+
+============================== 1 passed in 0.01s ==============================
+
+
+--- STDERR ---
+

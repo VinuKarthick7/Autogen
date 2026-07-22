@@ -1,0 +1,11 @@
+service_rules:
+  RoomService:
+    allowed_dependencies:
+      - IRoomDao
+      - ISyncQueueDao
+    forbidden_dependencies:
+      - DatabaseService
+      - ObjectBox
+      - Store
+  BookingService:
+    requires_transaction: true

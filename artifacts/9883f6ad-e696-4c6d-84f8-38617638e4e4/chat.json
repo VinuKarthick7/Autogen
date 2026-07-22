@@ -1,0 +1,72 @@
+[
+  {
+    "sender": "user",
+    "receiver": null,
+    "message": "Please implement the feature requested: Add loyalty points",
+    "timestamp": "2026-07-20T08:51:24.411848",
+    "metadata": {}
+  },
+  {
+    "sender": "planner",
+    "receiver": null,
+    "message": "{\"feature_name\": \"Mock\", \"description\": \"Mock plan\", \"database_changes\": [], \"backend_changes\": [], \"frontend_changes\": []}",
+    "timestamp": "2026-07-20T08:51:24.933063",
+    "metadata": {}
+  },
+  {
+    "sender": "database",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/models/mock.py\", \"content\": \"class Mock:\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T08:51:25.448761",
+    "metadata": {}
+  },
+  {
+    "sender": "backend",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/api/mock.py\", \"content\": \"router = APIRouter()\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T08:51:25.966697",
+    "metadata": {}
+  },
+  {
+    "sender": "frontend",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"lib/screens/mock.dart\", \"content\": \"class MockScreen\", \"file_type\": \"dart\"}]}",
+    "timestamp": "2026-07-20T08:51:26.481276",
+    "metadata": {}
+  },
+  {
+    "sender": "reviewer",
+    "receiver": null,
+    "message": "APPROVE",
+    "timestamp": "2026-07-20T08:51:27.007123",
+    "metadata": {}
+  },
+  {
+    "sender": "database",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/models/mock.py\", \"content\": \"class Mock:\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T08:51:27.523103",
+    "metadata": {}
+  },
+  {
+    "sender": "backend",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/api/mock.py\", \"content\": \"router = APIRouter()\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T08:51:28.043321",
+    "metadata": {}
+  },
+  {
+    "sender": "frontend",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"lib/screens/mock.dart\", \"content\": \"class MockScreen\", \"file_type\": \"dart\"}]}",
+    "timestamp": "2026-07-20T08:51:28.572771",
+    "metadata": {}
+  },
+  {
+    "sender": "reviewer",
+    "receiver": null,
+    "message": "APPROVE",
+    "timestamp": "2026-07-20T08:51:29.094399",
+    "metadata": {}
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "path": "app/models/BookingEntity.py",
+    "content": "class BookingEntity:\n    uuid = '123'\n    guestId = '456'\n    # Missing propertyId\n    def change_status(self):\n        print('RESERVED to CLEANING')\n    def login(self):\n        if password == '1234': pass\n",
+    "file_type": "python"
+  },
+  {
+    "path": "app/api/mock_api.py",
+    "content": "def mock_router() -> int:\n    return 1\n",
+    "file_type": "python"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "benchmark_id": "pms-easy-2",
+  "run_id": "bench_pms_20260721_094917_pms-easy-2_36adb6",
+  "passed": false,
+  "planner_accuracy": 0.0,
+  "dependency_accuracy": 1.0,
+  "repair_success_rate": 0.0,
+  "verification_success": false,
+  "repair_attempts": 0,
+  "human_intervention": false,
+  "generated_files": 0,
+  "modified_files": 0,
+  "duration_seconds": 0.7694132328033447,
+  "tokens_used": 5000,
+  "estimated_cost_usd": 0.0025
+}

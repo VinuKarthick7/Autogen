@@ -1,0 +1,43 @@
+--- STDOUT ---
+--- python ---
+F821 Undefined name `store`
+ --> app\models\mock_model.py:4:9
+  |
+2 |     def bad_code(self):
+3 |         # TODO FIXME dummy mock
+4 |         store.box<User>()
+  |         ^^^^^
+5 |         if password == '1234':
+6 |             pass
+  |
+
+F821 Undefined name `User`
+ --> app\models\mock_model.py:4:19
+  |
+2 |     def bad_code(self):
+3 |         # TODO FIXME dummy mock
+4 |         store.box<User>()
+  |                   ^^^^
+5 |         if password == '1234':
+6 |             pass
+  |
+
+F821 Undefined name `password`
+ --> app\models\mock_model.py:5:12
+  |
+3 |         # TODO FIXME dummy mock
+4 |         store.box<User>()
+5 |         if password == '1234':
+  |            ^^^^^^^^
+6 |             pass
+  |
+
+Found 3 errors.
+
+--- python ---
+Success: no issues found in 3 source files
+
+
+
+--- STDERR ---
+

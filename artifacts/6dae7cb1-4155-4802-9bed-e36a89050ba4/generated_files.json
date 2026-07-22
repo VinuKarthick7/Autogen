@@ -1,0 +1,12 @@
+[
+  {
+    "path": "app/models/mock.py",
+    "content": "class Mock:",
+    "file_type": "python"
+  },
+  {
+    "path": "app/api/mock.py",
+    "content": "router = APIRouter()",
+    "file_type": "python"
+  }
+]

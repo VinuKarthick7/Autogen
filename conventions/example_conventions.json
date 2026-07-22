@@ -1,0 +1,52 @@
+{
+  "project_info": {
+    "name": "Pinesphere Stay",
+    "backend_framework": "FastAPI",
+    "frontend_framework": "Flutter",
+    "database": "PostgreSQL"
+  },
+  "folder_structure": {
+    "routers_path": "app/modules",
+    "models_path": "app/models",
+    "services_path": "app/services"
+  },
+  "database": {
+    "base_model_name": "Base",
+    "common_fields": [
+      "id",
+      "created_at",
+      "updated_at",
+      "tenant_id"
+    ],
+    "timestamp_fields": [
+      "created_at",
+      "updated_at"
+    ],
+    "tenant_field": "tenant_id",
+    "migration_tool": "alembic"
+  },
+  "auth": {
+    "auth_type": "JWT",
+    "dependency_name": "get_current_user",
+    "role_checker": "require_role"
+  },
+  "api": {
+    "response_envelope": [
+      "data",
+      "message",
+      "status"
+    ]
+  },
+  "frontend": {
+    "state_management": "Riverpod",
+    "navigation": "GoRouter",
+    "architecture_pattern": "feature-first"
+  },
+  "existing_modules": {
+    "modules": [
+      "booking",
+      "property",
+      "payment"
+    ]
+  }
+}

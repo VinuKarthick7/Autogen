@@ -1,0 +1,6 @@
+offline_rules:
+  - all_mutations_must_queue
+  - sync_writes_require_transaction
+  - offline_entities_require_uuid
+  - no_network_calls_inside_transactions
+  - failed_syncs_must_be_retryable

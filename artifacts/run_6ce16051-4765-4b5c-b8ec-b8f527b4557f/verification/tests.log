@@ -1,0 +1,58 @@
+--- STDOUT ---
+
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pytest\__main__.py", line 9, in <module>
+    raise SystemExit(_console_main())
+                     ^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\__init__.py", line 253, in _console_main
+    code = _main(prog=_get_prog_name(sys.argv))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\__init__.py", line 223, in _main
+    config = _prepareconfig(new_args, plugins, prog=prog)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\__init__.py", line 410, in _prepareconfig
+    config: Config = pluginmanager.hook.pytest_cmdline_parse(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pluggy\_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pluggy\_callers.py", line 167, in _multicall
+    raise exception
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pluggy\_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\helpconfig.py", line 124, in pytest_cmdline_parse
+    config = yield
+             ^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\pluggy\_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\__init__.py", line 1232, in pytest_cmdline_parse
+    self.parse(args)
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\__init__.py", line 1533, in parse
+    rootpath, inipath, inicfg, ignored_config_files = determine_setup(
+                                                      ^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\findpaths.py", line 314, in determine_setup
+    rootdir, inipath, inicfg, ignored_config_files = locate_config(
+                                                     ^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\findpaths.py", line 189, in locate_config
+    ini_config = load_config_dict_from_file(p)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\findpaths.py", line 67, in load_config_dict_from_file
+    iniconfig = _parse_ini_config(filepath)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\_pytest\config\findpaths.py", line 53, in _parse_ini_config
+    return iniconfig.IniConfig(str(path))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vinuk\AppData\Roaming\Python\Python311\site-packages\iniconfig\__init__.py", line 114, in __init__
+    data = fp.read()
+           ^^^^^^^^^
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+

@@ -1,0 +1,40 @@
+repair_policies:
+  LINT:
+    max_attempts: 2
+    auto_repair: true
+  BUILD:
+    max_attempts: 2
+    auto_repair: true
+  TEST:
+    max_attempts: 1
+    auto_repair: true
+  ARCHITECTURE:
+    max_attempts: 1
+    auto_repair: true
+  SECURITY:
+    max_attempts: 0
+    auto_repair: false
+  REGRESSION:
+    max_attempts: 0
+    auto_repair: false
+  DATA LOSS:
+    max_attempts: 0
+    auto_repair: false
+  DOMAIN:
+    max_attempts: 1
+    auto_repair: true
+  OFFLINE:
+    max_attempts: 1
+    auto_repair: true
+  ForbiddenPattern:
+    max_attempts: 1
+    auto_repair: true
+  EntityContract:
+    max_attempts: 1
+    auto_repair: true
+  OfflineContract:
+    max_attempts: 1
+    auto_repair: true
+  DomainLogic:
+    max_attempts: 1
+    auto_repair: true

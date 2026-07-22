@@ -1,0 +1,16 @@
+{
+  "run_id": "20580cdd-e156-434f-9938-5f731bb34a51",
+  "total_operations": 2,
+  "operations": [
+    {
+      "operation": "create",
+      "path": "app/models/BookingEntity.py",
+      "reason": "Agent generated patch"
+    },
+    {
+      "operation": "create",
+      "path": "app/api/mock_api.py",
+      "reason": "Agent generated patch"
+    }
+  ]
+}

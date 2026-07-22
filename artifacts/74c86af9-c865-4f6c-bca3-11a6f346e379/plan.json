@@ -1,0 +1,22 @@
+{
+  "feature_name": "Mock Feature",
+  "description": "Mock Feature",
+  "database_changes": [
+    "Mock DB"
+  ],
+  "backend_changes": [
+    "Mock API"
+  ],
+  "frontend_changes": [
+    "Mock UI"
+  ],
+  "files_to_create": [
+    "app/models/mock.py",
+    "app/api/mock.py",
+    "lib/screens/mock.dart"
+  ],
+  "files_to_modify": [],
+  "dependencies": [],
+  "risks": [],
+  "estimated_complexity": "low"
+}

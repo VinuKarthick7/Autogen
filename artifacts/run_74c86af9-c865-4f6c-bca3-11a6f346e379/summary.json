@@ -1,0 +1,16 @@
+{
+  "run_id": "74c86af9-c865-4f6c-bca3-11a6f346e379",
+  "total_operations": 2,
+  "operations": [
+    {
+      "operation": "create",
+      "path": "app/models/mock.py",
+      "reason": "Agent generated patch"
+    },
+    {
+      "operation": "create",
+      "path": "app/api/mock.py",
+      "reason": "Agent generated patch"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "passed": false,
+  "total_steps": 1,
+  "passed_steps": 0,
+  "failed_steps": 1,
+  "steps": [
+    {
+      "name": "Lint",
+      "command": "auto-detected",
+      "success": false,
+      "duration_ms": 520,
+      "stdout": "--- python ---\nF821 Undefined name `APIRouter`\n --> app\\api\\mock.py:1:10\n  |\n1 | router = APIRouter()\n  |          ^^^^^^^^^\n  |\n\ninvalid-syntax: Expected an indented block after `class` definition\n --> app\\models\\mock.py:1:12\n  |\n1 | class Mock:\n  |            ^\n  |\n\nE902 stream did not contain valid UTF-8\n--> main.py:1:1\n\nFound 3 errors.\n\n--- python ---\napp\\models\\mock.py: error: Duplicate module named \"mock\" (also at \".\\app\\api\\mock.py\")\napp\\models\\mock.py: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#mapping-file-paths-to-modules for more info\napp\\models\\mock.py: note: Common resolutions include:\napp\\models\\mock.py: note:     a) using `--exclude` to avoid checking one of them,\napp\\models\\mock.py: note:     b) adding `__init__.py` somewhere,\napp\\models\\mock.py: note:     c) using `--explicit-package-bases` or adjusting `MYPYPATH`\nFound 1 error in 1 file (errors prevented further checking)\n\n",
+      "stderr": ""
+    }
+  ]
+}

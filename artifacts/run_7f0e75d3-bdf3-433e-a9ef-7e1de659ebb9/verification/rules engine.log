@@ -1,0 +1,6 @@
+--- STDOUT ---
+Domain invariant violation: Impossible status transition.
+Domain invariant violation: Impossible status transition.
+
+--- STDERR ---
+

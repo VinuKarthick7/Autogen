@@ -1,0 +1,11 @@
+CRITICAL:
+  block_merge: true
+
+HIGH:
+  block_merge: true
+
+MEDIUM:
+  block_merge: false
+
+LOW:
+  block_merge: false

@@ -1,0 +1,10 @@
+--- STDOUT ---
+Matched forbidden pattern: password\s*==\s*['"]1234['"]
+Matched forbidden pattern: mock
+BookingEntity is missing required field: roomId
+Domain invariant violation: Impossible status transition.
+Domain invariant violation: Impossible status transition.
+Regression detected: PMS-001 Authentication bypass using 1234
+
+--- STDERR ---
+

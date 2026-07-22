@@ -1,0 +1,20 @@
+--- STDOUT ---
+--- python ---
+E902 stream did not contain valid UTF-8
+--> main.py:1:1
+
+Found 1 error.
+
+--- python ---
+app\models\mock.py: error: Duplicate module named "mock" (also at ".\app\api\mock.py")
+app\models\mock.py: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#mapping-file-paths-to-modules for more info
+app\models\mock.py: note: Common resolutions include:
+app\models\mock.py: note:     a) using `--exclude` to avoid checking one of them,
+app\models\mock.py: note:     b) adding `__init__.py` somewhere,
+app\models\mock.py: note:     c) using `--explicit-package-bases` or adjusting `MYPYPATH`
+Found 1 error in 1 file (errors prevented further checking)
+
+
+
+--- STDERR ---
+

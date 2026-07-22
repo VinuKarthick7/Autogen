@@ -1,0 +1,30 @@
+[
+  {
+    "sender": "user",
+    "receiver": null,
+    "message": "Please implement the feature requested: Add loyalty points",
+    "timestamp": "2026-07-20T09:12:39.937010",
+    "metadata": {}
+  },
+  {
+    "sender": "planner",
+    "receiver": null,
+    "message": "{\"feature_name\": \"Mock\", \"description\": \"Mock plan\", \"database_changes\": [], \"backend_changes\": [], \"frontend_changes\": []}",
+    "timestamp": "2026-07-20T09:12:40.452503",
+    "metadata": {}
+  },
+  {
+    "sender": "database",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/models/mock.py\", \"content\": \"class Mock:\\n    pass\\n\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T09:12:40.964085",
+    "metadata": {}
+  },
+  {
+    "sender": "backend",
+    "receiver": null,
+    "message": "{\"files\": [{\"path\": \"app/api/mock.py\", \"content\": \"def mock_router() -> int:\\n    return 1\\n\", \"file_type\": \"python\"}]}",
+    "timestamp": "2026-07-20T09:12:41.478020",
+    "metadata": {}
+  }
+]

@@ -1,0 +1,32 @@
+forbidden_patterns:
+  - pattern: 'databaseService\.store'
+    severity: CRITICAL
+    reason: "Direct ObjectBox access bypasses DAO layer"
+
+  - pattern: 'store\.box<'
+    severity: CRITICAL
+    reason: "Feature code must not touch ObjectBox"
+
+  - pattern: 'removeAll\(\)'
+    severity: HIGH
+    reason: "Potential data-loss operation"
+
+  - pattern: 'TODO'
+    severity: MEDIUM
+    reason: "Incomplete production code"
+
+  - pattern: 'FIXME'
+    severity: MEDIUM
+    reason: "Known unresolved issue"
+
+  - pattern: 'dummy'
+    severity: HIGH
+    reason: "Placeholder implementation"
+
+  - pattern: 'mock'
+    severity: HIGH
+    reason: "Potential fake logic"
+
+  - pattern: 'password\s*==\s*[''"]1234[''"]'
+    severity: CRITICAL
+    reason: "Hardcoded default authentication token"

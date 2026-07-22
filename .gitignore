@@ -1,0 +1,37 @@
+# Local secrets and configuration
+.env
+.env.*
+!.env.example
+
+# Python environments and bytecode
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Python tooling and build outputs
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Streamlit local state and secrets
+.streamlit/secrets.toml
+.streamlit/credentials.toml
+
+# Local runtime output
+logs/*.log
+out_test/
+
+# Operating system files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,90 @@
+{
+  "passed": false,
+  "total_steps": 4,
+  "passed_steps": 4,
+  "failed_steps": 0,
+  "steps": [
+    {
+      "name": "Lint",
+      "command": "auto-detected",
+      "success": true,
+      "duration_ms": 322,
+      "stdout": "--- python ---\nAll checks passed!\n\n--- python ---\nSuccess: no issues found in 3 source files\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "Build",
+      "command": "auto-detected",
+      "success": true,
+      "duration_ms": 78,
+      "stdout": "Listing '.'...\nListing '.\\\\.git'...\nListing '.\\\\.git\\\\hooks'...\nListing '.\\\\.git\\\\info'...\nListing '.\\\\.git\\\\logs'...\nListing '.\\\\.git\\\\logs\\\\refs'...\nListing '.\\\\.git\\\\logs\\\\refs\\\\heads'...\nListing '.\\\\.git\\\\logs\\\\refs\\\\heads\\\\agent'...\nListing '.\\\\.git\\\\objects'...\nListing '.\\\\.git\\\\objects\\\\02'...\nListing '.\\\\.git\\\\objects\\\\10'...\nListing '.\\\\.git\\\\objects\\\\28'...\nListing '.\\\\.git\\\\objects\\\\39'...\nListing '.\\\\.git\\\\objects\\\\4f'...\nListing '.\\\\.git\\\\objects\\\\b8'...\nListing '.\\\\.git\\\\objects\\\\e3'...\nListing '.\\\\.git\\\\objects\\\\ee'...\nListing '.\\\\.git\\\\objects\\\\ef'...\nListing '.\\\\.git\\\\objects\\\\f1'...\nListing '.\\\\.git\\\\objects\\\\fb'...\nListing '.\\\\.git\\\\objects\\\\info'...\nListing '.\\\\.git\\\\objects\\\\pack'...\nListing '.\\\\.git\\\\refs'...\nListing '.\\\\.git\\\\refs\\\\heads'...\nListing '.\\\\.git\\\\refs\\\\heads\\\\agent'...\nListing '.\\\\.git\\\\refs\\\\tags'...\nListing '.\\\\.mypy_cache'...\nListing '.\\\\.mypy_cache\\\\3.11'...\nListing '.\\\\.pytest_cache'...\nListing '.\\\\.pytest_cache\\\\v'...\nListing '.\\\\.pytest_cache\\\\v\\\\cache'...\nListing '.\\\\.ruff_cache'...\nListing '.\\\\.ruff_cache\\\\0.15.22'...\nListing '.\\\\app'...\nListing '.\\\\app\\\\api'...\nListing '.\\\\app\\\\models'...\nCompiling '.\\\\app\\\\models\\\\BookingEntity.py'...\n",
+      "stderr": ""
+    },
+    {
+      "name": "Migration",
+      "command": "auto-detected",
+      "success": true,
+      "duration_ms": 0,
+      "stdout": "No migrations detected.",
+      "stderr": ""
+    },
+    {
+      "name": "Tests",
+      "command": "auto-detected",
+      "success": true,
+      "duration_ms": 428,
+      "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0\nrootdir: C:\\projects\\Autogen\\workspaces\\run_2c2ec684-fa08-44bf-a268-004eea50e708\\repo\nconfigfile: pytest.ini\nplugins: anyio-4.14.1\ncollected 1 item\n\ntest_dummy.py .                                                          [100%]\n\n============================== 1 passed in 0.01s ==============================\n",
+      "stderr": ""
+    },
+    {
+      "name": "Rules Engine",
+      "command": "repository_rules.py",
+      "success": false,
+      "duration_ms": 0,
+      "stdout": "Matched forbidden pattern: mock\nBookingEntity is missing required field: roomId\nDomain invariant violation: Impossible status transition.\nDomain invariant violation: Impossible status transition.\nDomain invariant violation: Impossible status transition.",
+      "stderr": ""
+    }
+  ],
+  "rule_violations": [
+    {
+      "severity": "HIGH",
+      "category": "ForbiddenPattern",
+      "file": "app/api/mock_api.py",
+      "line": 1,
+      "message": "Matched forbidden pattern: mock",
+      "suggestion": "Potential fake logic"
+    },
+    {
+      "severity": "HIGH",
+      "category": "EntityContract",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "BookingEntity is missing required field: roomId",
+      "suggestion": "Add roomId to BookingEntity to comply with entity contract."
+    },
+    {
+      "severity": "HIGH",
+      "category": "DomainLogic",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "Domain invariant violation: Impossible status transition.",
+      "suggestion": "Fix domain logic transitions."
+    },
+    {
+      "severity": "HIGH",
+      "category": "DomainLogic",
+      "file": "app/api/mock_api.py",
+      "line": 1,
+      "message": "Domain invariant violation: Impossible status transition.",
+      "suggestion": "Fix domain logic transitions."
+    },
+    {
+      "severity": "HIGH",
+      "category": "DomainLogic",
+      "file": "app/models/BookingEntity.py",
+      "line": 1,
+      "message": "Domain invariant violation: Impossible status transition.",
+      "suggestion": "Fix domain logic transitions."
+    }
+  ]
+}
