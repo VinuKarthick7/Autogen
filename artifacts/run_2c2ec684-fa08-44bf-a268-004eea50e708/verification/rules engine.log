@@ -1,9 +1,0 @@
---- STDOUT ---
-Matched forbidden pattern: mock
-BookingEntity is missing required field: roomId
-Domain invariant violation: Impossible status transition.
-Domain invariant violation: Impossible status transition.
-Domain invariant violation: Impossible status transition.
-
---- STDERR ---
-
