@@ -5,7 +5,7 @@ from time import time
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import runs, benchmarks, artifacts, repairs, approvals, health
+from api.routes import runs, benchmarks, artifacts, repairs, approvals, health, repository
 from api.services.websocket_service import WebsocketService
 from api.middleware.exception_handler import global_exception_handler
 from api.middleware.logging import log_request_middleware
@@ -55,6 +55,7 @@ def create_app() -> FastAPI:
     app.include_router(benchmarks.router)
     app.include_router(repairs.router)
     app.include_router(health.router)
+    app.include_router(repository.router)
 
     from api.routes.product import router as prod_router
     from api.routes.quality import router as qual_router
