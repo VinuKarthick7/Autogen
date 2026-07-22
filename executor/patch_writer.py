@@ -9,8 +9,7 @@ class PatchWriter:
             ".env",
             ".git",
             "secrets",
-            "config/production",
-            "docker-compose.prod.yml"
+            "config/production"
         ]
 
     def _is_restricted(self, path: str) -> bool:

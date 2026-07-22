@@ -1,4 +1,4 @@
-.PHONY: api worker dashboard benchmark up down
+.PHONY: api worker dashboard benchmark
 
 api:
 	uvicorn main:app --reload
@@ -11,9 +11,3 @@ dashboard:
 
 benchmark:
 	python -m api.workers.benchmark_executor
-
-up:
-	docker-compose up --build -d
-
-down:
-	docker-compose down
