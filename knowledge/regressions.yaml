@@ -1,9 +1,0 @@
-regressions:
-  - id: PMS-001
-    title: Authentication bypass using 1234
-  - id: PMS-002
-    title: Login removed local database
-  - id: PMS-003
-    title: Direct ObjectBox access
-  - id: PMS-004
-    title: Fake HTTP 202 success

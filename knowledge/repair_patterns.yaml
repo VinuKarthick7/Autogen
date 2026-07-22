@@ -1,7 +1,0 @@
-- failure:
-    rule: service_must_use_dao
-  fix:
-    before: |
-      databaseService.store.box<RoomEntity>()
-    after: |
-      roomDao.findByUuid()
