@@ -67,8 +67,22 @@ def render() -> None:
     architecture_tab, quality_tab, roadmap_tab = st.tabs(["Architecture Deep Dive", "Quality Deep Dive", "Roadmap"])
     with architecture_tab:
         context = review["context"]
-        st.dataframe(pd.DataFrame(context["dependencies"]["hotspots"]), use_container_width=True, hide_index=True)
-        st.write(f"Circular imports detected: {context['quality']['circular_imports']}")
+        architecture = context["architecture"]
+        st.subheader("Largest directories")
+        st.dataframe(pd.DataFrame(architecture["largest_directories"]), use_container_width=True, hide_index=True)
+        st.subheader("Dependency hotspots")
+        st.dataframe(pd.DataFrame(architecture["dependency_hotspots"]), use_container_width=True, hide_index=True)
+        st.subheader("Most imported internal modules")
+        st.dataframe(pd.DataFrame(architecture["most_imported_modules"]), use_container_width=True, hide_index=True)
+        st.subheader("API groups")
+        st.dataframe(pd.DataFrame(architecture["api_groups"]), use_container_width=True, hide_index=True)
+        st.subheader("Layer distribution")
+        st.dataframe(pd.DataFrame(architecture["service_boundaries"]), use_container_width=True, hide_index=True)
+        st.write(f"Circular imports detected: {context['quality']['circular_import_count']}")
+        if review["architecture"].get("evidence"):
+            st.markdown("**Evidence used by the review**")
+            for item in review["architecture"]["evidence"]:
+                st.write(f"- {item}")
         for item in review["architecture"]["issues"]:
             st.write(f"- {item}")
     with quality_tab:

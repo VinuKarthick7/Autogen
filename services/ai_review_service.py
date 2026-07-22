@@ -45,32 +45,58 @@ class AIReviewService:
         """Offline reasoning from scanner facts only; never reads repository files."""
         quality = context["quality"]
         structure = context["structure"]
-        dependencies = context["dependencies"]
-        architecture_issues = []
-        architecture_recommendations = []
-        if quality["circular_imports"]:
-            architecture_issues.append(f"{quality['circular_imports']} circular import relationships were detected.")
-            architecture_recommendations.append("Break circular dependency paths behind a stable interface.")
-        if not structure["directories"]:
-            architecture_issues.append("Scanner output contains limited module-structure evidence.")
-        if not architecture_issues:
-            architecture_issues.append("No circular imports were detected in the scanner dependency graph.")
+        architecture_context = context["architecture"]
+        architecture_issues: list[str] = []
+        architecture_recommendations: list[str] = []
+        evidence: list[str] = []
+        large_module = next((item for item in architecture_context["largest_modules"] if item["lines"] >= 250 or item["functions"] >= 20), None)
+        large_directory = next((item for item in architecture_context["largest_directories"] if item["files"] >= 30), None)
+        hotspot = next((item for item in architecture_context["dependency_hotspots"] if item["fan_in"] >= 5 or item["fan_out"] >= 10), None)
+        if large_module:
+            fact = f"{large_module['file']} has {large_module['lines']} lines, {large_module['functions']} functions, and {large_module['classes']} classes."
+            architecture_issues.append(fact)
+            architecture_recommendations.append(f"Split {large_module['file']} into domain-focused modules around its {large_module['functions']} functions.")
+            evidence.append(fact)
+        if large_directory and len(architecture_issues) < 5:
+            fact = f"Directory {large_directory['path']} contains {large_directory['files']} files."
+            architecture_issues.append(fact)
+            architecture_recommendations.append(f"Review ownership boundaries inside {large_directory['path']} before adding more modules there.")
+            evidence.append(fact)
+        if hotspot and len(architecture_issues) < 5:
+            fact = f"Dependency hotspot {hotspot['module']} has fan-in {hotspot['fan_in']} and fan-out {hotspot['fan_out']}."
+            architecture_issues.append(fact)
+            if hotspot["fan_out"] >= hotspot["fan_in"]:
+                architecture_recommendations.append(f"Move grouped imports from {hotspot['module']} into a dedicated composition or bootstrap module.")
+            else:
+                architecture_recommendations.append(f"Reduce direct dependencies on {hotspot['module']} by introducing a focused interface at its callers.")
+            evidence.append(fact)
+        for cycle in architecture_context["circular_imports"][:1]:
+            fact = "Circular import path: " + " -> ".join(cycle)
+            architecture_issues.append(fact)
+            architecture_recommendations.append(f"Break the circular import involving {cycle[0]} with an interface or dependency inversion.")
+            evidence.append(fact)
+        strengths = [
+            f"Scanner analyzed {structure['total_files']} files with {structure['api_routes']} detected API routes.",
+            f"Repository has {len(architecture_context['service_boundaries'])} detected architectural layer groups.",
+            f"Route-to-module ratio is {architecture_context['route_to_module_ratio']} across {context['repository']['languages']} source languages.",
+        ]
         quality_issues = []
         quality_recommendations = []
+        test_target = architecture_context["largest_modules"][0]["file"] if architecture_context["largest_modules"] else "the largest scanned module"
         if quality["test_files"] == 0:
             quality_issues.append("No test files were detected.")
-            quality_recommendations.append("Add focused tests around the highest-risk modules first.")
+            quality_recommendations.append(f"Add focused tests for {test_target}, the largest scanner-visible Python module.")
         if quality["documentation_score"] < 100:
             quality_issues.append("Repository documentation signals are incomplete.")
-            quality_recommendations.append("Document setup, boundaries, and operational workflows in the README or docs directory.")
+            quality_recommendations.append("Document setup and architectural boundaries in the repository README or docs directory.")
         if quality["todo_count"]:
             quality_issues.append(f"{quality['todo_count']} TODO markers were detected.")
-            quality_recommendations.append("Triage TODO markers into owned, dated backlog items.")
+            quality_recommendations.append(f"Triage the {quality['todo_count']} scanner-detected TODO markers into owned backlog items.")
         if not quality_issues:
             quality_issues.append("No scanner-visible testing, documentation, or TODO gaps were detected.")
-        architecture = {"score": max(context["repository"]["health_score"] - 5 * quality["circular_imports"], 0), "strengths": [f"{structure['total_files']} files were analyzed deterministically.", f"{len(dependencies['internal_imports'])} internal import signals are available for review."], "issues": architecture_issues, "recommendations": architecture_recommendations or ["Keep module boundaries explicit as the repository grows."]}
-        quality_review = {"score": context["repository"]["health_score"], "strengths": [f"{quality['test_files']} test files and {structure['api_routes']} API routes were detected."], "issues": quality_issues, "recommendations": quality_recommendations or ["Maintain the current testing and documentation signals."]}
-        planning = {"priority_1": architecture["recommendations"][:1] + quality_review["recommendations"][:1], "priority_2": quality_review["recommendations"][1:2], "priority_3": ["Review dependency hotspots before the next major feature boundary."], "roadmap": ["Immediate: address priority-1 scanner-evidenced risks.", "Next sprint: strengthen tests and documentation around hotspot modules.", "Long term: track architectural health on each repository scan."]}
+        architecture = {"score": max(context["repository"]["health_score"] - 5 * quality["circular_import_count"], 0), "strengths": strengths, "issues": architecture_issues[:5], "recommendations": architecture_recommendations[:5], "evidence": evidence[:5]}
+        quality_review = {"score": context["repository"]["health_score"], "strengths": [f"{quality['test_files']} test files and {structure['api_routes']} API routes were detected."], "issues": quality_issues, "recommendations": quality_recommendations}
+        planning = {"priority_1": architecture["recommendations"][:2] + quality_review["recommendations"][:1], "priority_2": quality_review["recommendations"][1:2], "priority_3": [], "roadmap": architecture["recommendations"][:2] + quality_review["recommendations"][:2]}
         return {"architecture": architecture, "quality": quality_review, "planning": planning}
 
 

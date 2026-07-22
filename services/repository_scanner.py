@@ -79,6 +79,8 @@ class RepositoryScanner:
         models: list[dict[str, str]] = []
         dependency_edges: set[tuple[str, str, str]] = set()
         python_module_names: set[str] = set()
+        directory_files: Counter[str] = Counter()
+        module_metrics: list[dict[str, int | str]] = []
         started_at = datetime.now(timezone.utc)
 
         for directory, child_directories, filenames in os.walk(root, topdown=True, followlinks=False):
@@ -90,12 +92,16 @@ class RepositoryScanner:
                 if path.is_symlink() or not path.is_file():
                     continue
                 files += 1
+                relative_path = path.relative_to(root)
+                parent = relative_path.parent.as_posix()
+                if parent != ".":
+                    directory_files[parent] += 1
                 suffix = path.suffix.lower()
                 languages[LANGUAGES.get(suffix, suffix.lstrip(".").upper() or "Other")] += 1
                 if suffix != ".py":
                     continue
                 python_modules += 1
-                module_name = str(path.relative_to(root).with_suffix("")).replace(os.sep, ".")
+                module_name = str(relative_path.with_suffix("")).replace(os.sep, ".")
                 python_module_names.add(module_name)
                 source_kind = self._module_kind(path.relative_to(root))
                 try:
@@ -104,9 +110,11 @@ class RepositoryScanner:
                     tree = ast.parse(source, filename=str(path))
                 except (OSError, SyntaxError, UnicodeError):
                     continue
+                module_functions = module_classes = 0
                 for node in ast.walk(tree):
                     if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                         functions += 1
+                        module_functions += 1
                         for decorator in node.decorator_list:
                             target = decorator.func if isinstance(decorator, ast.Call) else decorator
                             owner = _dotted_name(target.value).split(".")[-1] if isinstance(target, ast.Attribute) else ""
@@ -121,6 +129,7 @@ class RepositoryScanner:
                                 api_routes.append({"path": route_path or "(dynamic)", "method": method, "function": node.name, "module": module_name})
                     elif isinstance(node, ast.ClassDef):
                         classes += 1
+                        module_classes += 1
                         if _is_model(node):
                             database_models += 1
                             models.append({"model": node.name, "module": module_name})
@@ -137,8 +146,10 @@ class RepositoryScanner:
                         dependency_edges.add((module_name, dependency, source_kind))
                 if path.name.startswith("test_") or path.name.endswith("_test.py") or "tests" in path.parts:
                     tests += 1
+                module_metrics.append({"file": relative_path.as_posix(), "lines": len(source.splitlines()), "functions": module_functions, "classes": module_classes})
 
-        circular_imports = self._circular_import_count(dependency_edges, python_module_names)
+        circular_import_details = self._circular_import_details(dependency_edges, python_module_names)
+        circular_imports = len(circular_import_details)
         health_score, health_checks = self._health_score(root, tests, python_modules, api_endpoints, todos, circular_imports)
         return {
             "repository_name": root.name,
@@ -160,8 +171,11 @@ class RepositoryScanner:
             "health_checks": health_checks,
             "todos": todos,
             "circular_imports": circular_imports,
+            "circular_import_details": circular_import_details,
             "imports_by_category": self._categorize_imports(imports, python_module_names),
             "dependency_edges": [{"source": source, "target": target, "source_kind": source_kind} for source, target, source_kind in sorted(dependency_edges)[:100]],
+            "directory_file_counts": [{"path": path, "files": count} for path, count in directory_files.most_common(10)],
+            "module_metrics": sorted(module_metrics, key=lambda item: (int(item["lines"]), int(item["functions"]), int(item["classes"])), reverse=True)[:15],
             "api_routes": api_routes[:100],
             "models": models[:100],
             "scanned_at": datetime.now(timezone.utc).isoformat(),
@@ -182,7 +196,7 @@ class RepositoryScanner:
         return "project"
 
     @staticmethod
-    def _circular_import_count(edges: set[tuple[str, str, str]], modules: set[str]) -> int:
+    def _circular_import_details(edges: set[tuple[str, str, str]], modules: set[str]) -> list[list[str]]:
         graph = {module: set() for module in modules}
         for source, target, _ in edges:
             target_module = target.lstrip(".")
@@ -190,23 +204,30 @@ class RepositoryScanner:
                 graph[source].add(target_module)
         visited: set[str] = set()
         active: set[str] = set()
-        cycles = 0
+        cycles: list[list[str]] = []
+        seen: set[tuple[str, ...]] = set()
+        trail: list[str] = []
 
         def visit(module: str) -> None:
-            nonlocal cycles
             visited.add(module)
             active.add(module)
+            trail.append(module)
             for target in graph[module]:
                 if target in active:
-                    cycles += 1
+                    cycle = trail[trail.index(target):] + [target]
+                    key = tuple(sorted(cycle[:-1]))
+                    if key not in seen:
+                        seen.add(key)
+                        cycles.append(cycle)
                 elif target not in visited:
                     visit(target)
             active.remove(module)
+            trail.pop()
 
         for module in graph:
             if module not in visited:
                 visit(module)
-        return cycles
+        return cycles[:10]
 
     @staticmethod
     def _categorize_imports(imports: Counter[str], modules: set[str]) -> dict[str, list[dict[str, int | str]]]:
